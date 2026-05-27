@@ -1,0 +1,77 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches('.*@.*\\..*');
+    }
+
+    // ── Users collection ─────────────────────────────────────────
+    match /users/{uid} {
+      // Users can read and update their own profile
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) &&
+        request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'role']) &&
+        request.resource.data.role == 'customer' && // can't self-promote to admin
+        isValidEmail(request.resource.data.email);
+      allow update: if (isOwner(uid) &&
+        // Customers cannot change their own role
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role'])))
+        || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Products collection ───────────────────────────────────────
+    match /products/{productId} {
+      // Public read — anyone can browse products
+      allow read: if resource.data.active == true || isAdmin();
+      // Only admins can create, update, delete products
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ── Orders collection ─────────────────────────────────────────
+    match /orders/{orderId} {
+      // Customers can read their own orders matched by email or by uid
+      // (uid is populated by the webhook or linkOrphanedOrders server action)
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.customer.email == request.auth.token.email) ||
+        (isSignedIn() && resource.data.keys().hasAll(['uid']) && resource.data.uid == request.auth.uid);
+      // All order writes go through the Firebase Admin SDK (webhook + /api/user/setup)
+      // which bypasses these rules — clients must never write orders directly.
+      allow create, update, delete: if false;
+    }
+
+    // ── Carts collection ──────────────────────────────────────────
+    match /carts/{uid} {
+      // Users can only read/write their own cart
+      allow read, write: if isOwner(uid);
+    }
+
+    // ── Settings / config (admin-only) ────────────────────────────
+    match /config/{document} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ── Analytics events (write-only for authenticated users) ─────
+    match /analyticsEvents/{eventId} {
+      allow create: if isSignedIn();
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

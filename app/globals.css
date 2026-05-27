@@ -1,26 +1,425 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─── Caribbean Cannabis Collective — Brand Design System ─── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand Colors */
+  --color-forest: #0a1a0a;
+  --color-canopy: #142414;
+  --color-grove: #1e3a1e;
+  --color-leaf: #2d5a27;
+  --color-lime: #6db33f;
+  --color-gold: #c9a84c;
+  --color-amber: #8b6914;
+  --color-coral: #e05c2a;
+  --color-cream: #f4efe4;
+  --color-ivory: #d4ccb8;
+  --color-mist: #8a8278;
+  --color-smoke: #3d3830;
+
+  /* Typography */
+  --font-display: var(--font-bebas), 'Bebas Neue', sans-serif;
+  --font-heading: var(--font-playfair), 'Playfair Display', serif;
+  --font-sans: var(--font-inter), 'Inter', sans-serif;
+
+  /* Shadows */
+  --shadow-gold: 0 0 24px rgba(201, 168, 76, 0.25);
+  --shadow-lime: 0 0 24px rgba(109, 179, 63, 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Styles ─── */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a1a0a;
+  color: #f4efe4;
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Display Font (Bebas Neue — All-caps automatically) ─── */
+.font-display {
+  font-family: var(--font-bebas), 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Heading Font (Playfair Display) ─── */
+.font-heading {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #142414;
+}
+::-webkit-scrollbar-thumb {
+  background: #3d3830;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a84c;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: #6db33f;
+  color: #0a1a0a;
+}
+
+/* ─── Focus ring ─── */
+:focus-visible {
+  outline: 2px solid #6db33f;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ─── Cart drawer animation ─── */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.cart-drawer-enter {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+.cart-drawer-exit {
+  animation: slideOutRight 0.3s ease-in forwards;
+}
+
+/* ─── Backdrop overlay ─── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.backdrop-enter {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* ─── Animation Keyframes ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-14px) translateX(8px);
+  }
+  66% {
+    transform: translateY(8px) translateX(-6px);
+  }
+}
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.82;
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+@keyframes gradientDrift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ─── Animation Utility Classes ─── */
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease-out both;
+}
+.animate-fade-in-down {
+  animation: fadeInDown 0.6s ease-out both;
+}
+.animate-fade-in-left {
+  animation: fadeInLeft 0.7s ease-out both;
+}
+.animate-fade-in-right {
+  animation: fadeInRight 0.7s ease-out both;
+}
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out both;
+}
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: floatSlow 10s ease-in-out infinite;
+}
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+.animate-ticker {
+  animation: ticker 28s linear infinite;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientDrift 8s ease infinite;
+}
+/* Plain opacity fade (no transform) — used for full-page overlays */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+/* ─── Shimmer hover overlay (add .shimmer-hover to the element) ─── */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(201, 168, 76, 0.07) 50%, transparent 60%);
+  background-size: 200% 100%;
+  background-position: 200% center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.shimmer-hover:hover::after {
+  opacity: 1;
+  animation: shimmer 0.8s ease forwards;
+}
+
+/* ─── Stagger delay helpers ─── */
+.delay-75 {
+  animation-delay: 75ms;
+}
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-150 {
+  animation-delay: 150ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+.delay-600 {
+  animation-delay: 600ms;
+}
+.delay-700 {
+  animation-delay: 700ms;
+}
+.delay-800 {
+  animation-delay: 800ms;
+}
+.delay-900 {
+  animation-delay: 900ms;
+}
+.delay-1000 {
+  animation-delay: 1000ms;
+}
+
+/* ─── Scroll-reveal — IntersectionObserver adds .is-visible ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── FAQ accordion — smooth open/close via CSS grid trick ─────────────── */
+details .faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+details[open] .faq-body {
+  grid-template-rows: 1fr;
+}
+.faq-body > div {
+  overflow: hidden;
+}
+
+/* ─── Respect prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  details .faq-body {
+    transition: none;
+    grid-template-rows: 1fr;
+  }
+  details:not([open]) .faq-body {
+    grid-template-rows: 0fr;
+  }
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-fade-in-left,
+  .animate-fade-in-right,
+  .animate-scale-in,
+  .animate-float,
+  .animate-float-slow,
+  .animate-pulse-glow,
+  .animate-ticker,
+  .animate-gradient {
+    animation: none !important;
+  }
+  .animate-bounce {
+    animation: none !important;
+  }
 }

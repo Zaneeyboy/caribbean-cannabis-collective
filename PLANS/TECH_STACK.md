@@ -2,24 +2,24 @@
 
 ## Core Framework
 
-| Layer          | Choice             | Reason                                              |
-|----------------|--------------------|-----------------------------------------------------|
-| Framework      | **Next.js 16** (App Router) | SSR/SSG, Vercel-native, file-based routing |
-| Language       | **TypeScript**     | Type safety, maintainability                        |
-| Styling        | **Tailwind CSS v4**| Utility-first, works perfectly with custom tokens   |
-| Runtime        | **Node.js 20+**    | Vercel default                                      |
+| Layer     | Choice                      | Reason                                            |
+| --------- | --------------------------- | ------------------------------------------------- |
+| Framework | **Next.js 16** (App Router) | SSR/SSG, Vercel-native, file-based routing        |
+| Language  | **TypeScript**              | Type safety, maintainability                      |
+| Styling   | **Tailwind CSS v4**         | Utility-first, works perfectly with custom tokens |
+| Runtime   | **Node.js 20+**             | Vercel default                                    |
 
 ---
 
 ## E-Commerce Layer
 
-| Concern          | Choice              | Notes                                               |
-|------------------|---------------------|-----------------------------------------------------|
-| Payments         | **Stripe**          | Checkout Sessions — no PCI burden on us             |
-| Cart State       | **Zustand + localStorage** | Client-side persistence between page loads  |
-| Product Data     | **Static JSON / lib/products.ts** (Phase 1) | Migrate to CMS later  |
-| Orders           | **Firebase Firestore** | Lightweight, no separate backend needed         |
-| Shipping Calc    | **Manual zones config** | Two zones: US + Caribbean (see shipping plan)  |
+| Concern       | Choice                                      | Notes                                         |
+| ------------- | ------------------------------------------- | --------------------------------------------- |
+| Payments      | **Stripe**                                  | Checkout Sessions — no PCI burden on us       |
+| Cart State    | **Zustand + localStorage**                  | Client-side persistence between page loads    |
+| Product Data  | **Static JSON / lib/products.ts** (Phase 1) | Migrate to CMS later                          |
+| Orders        | **Firebase Firestore**                      | Lightweight, no separate backend needed       |
+| Shipping Calc | **Manual zones config**                     | Two zones: US + Caribbean (see shipping plan) |
 
 ---
 
@@ -38,6 +38,7 @@
 ## Database — Firebase Firestore
 
 Collections:
+
 ```
 orders/
   {orderId}/
@@ -50,6 +51,7 @@ products/          ← optional, for future admin panel
 ```
 
 Environment variables:
+
 - `NEXT_PUBLIC_FIREBASE_API_KEY`
 - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
 - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
@@ -60,42 +62,42 @@ Environment variables:
 
 ## Image Handling
 
-| Concern         | Choice                          |
-|-----------------|---------------------------------|
-| Product images  | **Cloudinary** (free tier)      |
-| Hero/brand      | Local `/public/` + Next/Image   |
-| Placeholder     | `placehold.co` during dev       |
+| Concern        | Choice                        |
+| -------------- | ----------------------------- |
+| Product images | **Cloudinary** (free tier)    |
+| Hero/brand     | Local `/public/` + Next/Image |
+| Placeholder    | `placehold.co` during dev     |
 
 ---
 
 ## Email / Transactional
 
-| Trigger            | Tool                  |
-|--------------------|-----------------------|
+| Trigger            | Tool                               |
+| ------------------ | ---------------------------------- |
 | Order Confirmation | **Resend** (free tier up to 3k/mo) |
-| Template           | React Email components |
+| Template           | React Email components             |
 
 ---
 
 ## Deployment
 
-| Layer   | Service                      |
-|---------|------------------------------|
-| Hosting | **Vercel** (Hobby or Pro)    |
-| CDN     | Vercel Edge Network (included) |
-| Domain  | GoDaddy → point NS to Vercel |
+| Layer   | Service                              |
+| ------- | ------------------------------------ |
+| Hosting | **Vercel** (Hobby or Pro)            |
+| CDN     | Vercel Edge Network (included)       |
+| Domain  | GoDaddy → point NS to Vercel         |
 | SSL     | Vercel auto-provisions Let's Encrypt |
 
 ---
 
 ## Dev Tools
 
-| Tool         | Purpose                     |
-|--------------|-----------------------------|
-| ESLint       | Linting                     |
-| Prettier     | Formatting                  |
-| Turbopack    | Fast dev server (Next.js 16)|
-| Vercel CLI   | Local dev + deploy preview  |
+| Tool       | Purpose                      |
+| ---------- | ---------------------------- |
+| ESLint     | Linting                      |
+| Prettier   | Formatting                   |
+| Turbopack  | Fast dev server (Next.js 16) |
+| Vercel CLI | Local dev + deploy preview   |
 
 ---
 

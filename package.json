@@ -6,12 +6,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "strip-exif": "node scripts/strip-exif.mjs",
+    "upload-brand-images": "node scripts/upload-brand-images.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@react-email/components": "^1.0.12",
+    "@stripe/stripe-js": "^9.4.0",
+    "cloudinary": "^2.10.0",
+    "clsx": "^2.1.1",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.9.0",
+    "lucide-react": "^1.14.0",
     "next": "16.2.6",
+    "next-cloudinary": "^6.17.5",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.75.0",
+    "resend": "^6.12.3",
+    "sonner": "^2.0.7",
+    "stripe": "^22.1.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
