@@ -14,10 +14,12 @@ export default function Hero() {
           alt='Premium purple cannabis flower grown in the Caribbean'
           fill
           priority
-          className='object-cover object-[center_25%]'
+          className='object-cover object-[center_25%] [filter:blur(0.4px)] scale-[1.005]'
           sizes='100vw'
         />
-        <div className='absolute inset-0' style={{ background: 'rgba(60,10,100,0.15)' }} aria-hidden='true' />
+        <div className='absolute inset-0' style={{ background: 'rgba(60,10,100,0.22)' }} aria-hidden='true' />
+        {/* Grain texture — disguises upscaling on large screens */}
+        <div className='absolute inset-0 opacity-[0.06]' style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }} aria-hidden='true' />
         <div
           className='absolute inset-x-0 bottom-0'
           style={{ height: '55%', background: 'linear-gradient(to top, rgba(10,26,10,0.95) 0%, rgba(10,26,10,0.80) 35%, rgba(10,26,10,0.40) 65%, transparent 100%)' }}
