@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Full-bleed background -- single layout for all screen sizes */}
       <div className='absolute inset-0'>
         <Image
-          src='https://imagedelivery.net/ecdEo-DBm7G7aeUYmdFLBA/14eab96a-cae2-4896-f770-eda8e7d13200/w=800'
+          src='https://imagedelivery.net/ecdEo-DBm7G7aeUYmdFLBA/14eab96a-cae2-4896-f770-eda8e7d13200/public'
           alt='Premium purple cannabis flower grown in the Caribbean'
           fill
           priority
